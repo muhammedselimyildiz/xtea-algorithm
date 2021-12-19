@@ -1,0 +1,11 @@
+E:\repos\xtea-algorithm\bin\Debug\xtea-algorithm.exe.config
+E:\repos\xtea-algorithm\bin\Debug\xtea-algorithm.exe
+E:\repos\xtea-algorithm\bin\Debug\xtea-algorithm.pdb
+E:\repos\xtea-algorithm\obj\Debug\xtea-algorithm.csproj.AssemblyReference.cache
+E:\repos\xtea-algorithm\obj\Debug\xtea-algorithm.csproj.SuggestedBindingRedirects.cache
+E:\repos\xtea-algorithm\obj\Debug\xtea_algorithm.Form1.resources
+E:\repos\xtea-algorithm\obj\Debug\xtea_algorithm.Properties.Resources.resources
+E:\repos\xtea-algorithm\obj\Debug\xtea-algorithm.csproj.GenerateResource.cache
+E:\repos\xtea-algorithm\obj\Debug\xtea-algorithm.csproj.CoreCompileInputs.cache
+E:\repos\xtea-algorithm\obj\Debug\xtea-algorithm.exe
+E:\repos\xtea-algorithm\obj\Debug\xtea-algorithm.pdb
