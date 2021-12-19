@@ -32,5 +32,23 @@ namespace xtea_algorithm
             string ky = textBox3.Text;
             textBox6.Text = a.Decrypt(str, ky);
         }
+
+        private void textBox2_Leave(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).Text.Length < 16)
+            {
+                MessageBox.Show("Your key must be at least 16 characters");
+                textBox2.Focus();
+            }
+        }
+
+        private void textBox3_Leave(object sender, EventArgs e)
+        {
+            if (((TextBox)sender).Text.Length < 16)
+            {
+                MessageBox.Show("Your key must be at least 16 characters");
+                textBox3.Focus();
+            }
+        }
     }
 }

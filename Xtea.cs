@@ -12,14 +12,14 @@ namespace xtea_algorithm
 
         private static uint[] Longer(byte[] s)
         {
-            var long1 = new UInt32[(int)Math.Ceiling(((decimal)s.Length / 4))];
+            var long1 = new uint[(int)Math.Ceiling(((decimal)s.Length / 4))];
 
             for (int i = 0; i < long1.Length; i++)
             {
                 long1[i] = ((s[i * 4])) +
-                       ((i * 4 + 1) >= s.Length ? (UInt32)0 << 8 : ((UInt32)s[i * 4 + 1] << 8)) +
-                       ((i * 4 + 2) >= s.Length ? (UInt32)0 << 16 : ((UInt32)s[i * 4 + 2] << 16)) +
-                       ((i * 4 + 3) >= s.Length ? (UInt32)0 << 24 : ((UInt32)s[i * 4 + 3] << 24));
+                       ((i * 4 + 1) >= s.Length ? (uint)0 << 8 : ((uint)s[i * 4 + 1] << 8)) +
+                       ((i * 4 + 2) >= s.Length ? (uint)0 << 16 : ((uint)s[i * 4 + 2] << 16)) +
+                       ((i * 4 + 3) >= s.Length ? (uint)0 << 24 : ((uint)s[i * 4 + 3] << 24));
             }
 
             return long1;
@@ -44,19 +44,13 @@ namespace xtea_algorithm
             if (text.Length == 0)
                 return "";
 
-            if (key.Length == 0)
-                throw new ArgumentException("Key is short");
-
-            while (key.Length < 16)
-                key += key;
-
             var y = Longer((new UTF8Encoding()).GetBytes(text));
             if (y.Length == 1)
                 y[0] = 0;
 
             var k = Longer((new UTF8Encoding()).GetBytes(key.Substring(0,16)));
 
-            uint a = (uint)y.Length, b = y[a - 1], c = y[0], delta = 0x9e3779b9, d, f = (uint)(6 + (52 / a)), sum = f * delta, i = 0;
+            uint a = (uint)y.Length, b = y[a - 1], c = y[0], delta = 0x9e3779b9, d, f = (uint)(6 + (52 / a)), sum = 0, i = 0;
 
             while (f-- > 0)
             {
@@ -86,19 +80,22 @@ namespace xtea_algorithm
             var y = Longer(Convert.FromBase64String(chipertext));
             var k = Longer((new UTF8Encoding()).GetBytes(key.Substring(0, 16)));
 
-            uint a = (uint)y.Length, b = y[a - 1], c = y[0], delta = 0x9e3779b9, d, f = (uint)(6 + (52 / a)), sum = 0, i = 0;
+            uint a = (uint)y.Length, b = y[a - 1];
+            uint delta = 0x9e3779b9, d, f = (uint)(6 + (52 / a)), sum = f * delta, i = 0;
 
             while (sum != 0)
             {
+                uint c = y[0];
                 d = sum >> 2 & 3;
+
                 for (i = (a - 1); i > 0; i--)
                 {
-                    c = y[(i - 1)];
-                    b = y[i] -= (b >> 5 ^ c << 2) + (c >> 3 ^ b << 4) ^ (sum ^ c) + (k[i & 3 ^ d] ^ b);
+                    b = y[i - 1];
+                    c = y[i] -= (b >> 5 ^ c << 2) + (c >> 3 ^ b << 4) ^ (sum ^ c) + (k[i & 3 ^ d] ^ b);
                 }
 
-                c = y[a - 1];
-                b= y[0] -= (b >> 5 ^ c << 2) + (c >> 3 ^ b << 4) ^ (sum ^ c) + (k[i & 3 ^ d] ^ b);
+                b = y[a - 1];
+                c = y[0] -= (b >> 5 ^ c << 2) + (c >> 3 ^ b << 4) ^ (sum ^ c) + (k[i & 3 ^ d] ^ b);
 
                 sum -= delta;
             }
