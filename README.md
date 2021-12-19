@@ -1,3 +1,3 @@
-# xtea-algoritm
-Text Encrypter and Decrypter with XTEA Algoritm
+# xtea-algorithm
+Text Encrypter and Decrypter with XTEA Algorithm
 Windows Form Application - C#
